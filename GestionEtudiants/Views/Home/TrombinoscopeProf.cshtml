@@ -1,0 +1,171 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control col-xl-12 col-lg-12" id="selectDep" aria-label="Selectionner Departement">
+                                <option selected>Mes classes</option>
+                                @foreach (var c in ViewBag.dep)
+                                {
+                                    <option value="@c.id">@c.nom</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col text-center">
+                            <button onclick="copyEmails()" class="btn btn-primary col-xl-4 col-lg-4">Copy emails</button>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="row">
+                        <div class="col">
+                            <h3>@ViewData["Title"]</h3>
+                        </div>
+                        <div class="col">
+                            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                                <div class="input-group">
+                                    <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                                    <input onkeyup="myFunction()" type="text" class="form-control" placeholder="Type here..." id="Search">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="Tromb">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#selectDep").change(function () {
+        var filiere = document.getElementById("selectDep");
+        var value = filiere.value; // get selected option value.
+        console.log(value);
+        $.ajax({
+            type: "POST",
+            url: '/Home/getProfByDep/',
+            data: { departementId: value },
+            dataType: "json",
+            success: function (response) {
+                console.log(1);
+                console.log(response);
+                $('#Tromb').empty();
+                // Looping over emloyee list and display it
+                $.each(response, function (index, etu) {
+                    var apo = etu.id;
+                    console.log(etu);
+
+                    $('#Tromb').append('<div class="col-12 col-xl-3 col-sm-6 col-lg-3 col-md-4 mt-4 "> <div class="card card-stats mb-4 mb-xl-0 ">\
+                        <div class="card-body">\
+                            <a class="stretched-link" href="#" data-target="#_'+ apo + '" data-toggle="modal"><img src="/assets/img/theme/angular.jpg"  /></a>\
+                            <h3 class="text-center">'+ etu.nom + ' ' + etu.prenom + '</h3>\
+                            <h5 class="text-center">'+ etu.departement.nom +'</h5>\
+                            <h6 class="text-center">'+ etu.email +'</h6>\
+                        </div>\
+                    </div>\
+                </div>\
+                <div class="modal" id="_'+ apo + '" tabindex="-1" role="dialog" aria-hidden="true">\
+                    <div class="modal-dialog" role="document">\
+                        <div class="modal-content">\
+                            <div class="modal-header">\
+                                <h3>Details</h3>\
+                            </div>\
+                            <div class="container">\
+                                <label>Nom : '+ etu.nom + '</label> <br />\
+                                <label>Prenom : '+ etu.prenom + '</label><br />\
+                                <label>Filiere :'+ etu.departement.nom+'</label><br />\
+                                <label>Annee :'+ etu.email + '</label>\
+                                <br />\
+                            </div>\
+                            <div class="modal-footer">\
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </div>');
+                });
+            }
+        });
+    });
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("Search");
+        filter = input.value.toUpperCase();
+        Trombinoscope = document.getElementById("Tromb");
+        tr = Trombinoscope.getElementsByTagName("div");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("h3")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function copyEmails() {
+        var filiere = document.getElementById("selectDep");
+        var value = filiere.value; // get selected option value.
+        var emails = "";
+        $.ajax({
+            type: "POST",
+            url: '/Home/ProfEmails/',
+            data: { departementId: value },
+            dataType: "json",
+            success: function (response) {
+                $.each(response, function (index, email) {
+                    emails += email + ',';
+                    console.log(email);
+                });
+                emails = emails.slice(0, -1);
+                console.log(emails);
+                if (window.clipboardData && window.clipboardData.setData) {
+                    // Internet Explorer-specific code path to prevent textarea being shown while dialog is visible.
+                    return window.clipboardData.setData("Text", emails);
+
+                }
+                else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+                    var textarea = document.createElement("textarea");
+                    textarea.textContent = emails;
+                    textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in Microsoft Edge.
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    try {
+                        return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+                    }
+                    catch (ex) {
+                        console.warn("Copy to clipboard failed.", ex);
+                        return false;
+                    }
+                    finally {
+                        document.body.removeChild(textarea);
+                    }
+                }
+            }
+
+        });
+    }
+
+
+
+
+
+</script>
+

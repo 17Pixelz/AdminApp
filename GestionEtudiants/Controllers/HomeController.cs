@@ -15,6 +15,10 @@ using GestionEtudiants.Context;
 using GestionEtudiants.ViewModel;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+
+using Newtonsoft.Json;
 
 namespace GestionEtudiants.Controllers
 {
@@ -256,6 +260,42 @@ namespace GestionEtudiants.Controllers
         public void Remove(string key)
         {
             Response.Cookies.Delete(key);
+        }
+
+        public IActionResult AddEtudiant()
+        {
+            return View();
+        }
+
+        public IActionResult AddProfesseur()
+        {
+            var departements = db.departements.ToList();
+            ViewBag.dep = departements;
+            return View();
+        }
+
+        public IActionResult TrombinoscopeProf()
+        {
+            var departements = db.departements.ToList();
+            ViewBag.dep = departements;
+            return View();
+        }
+
+        public JsonResult getProfByDep(int departementId)
+        {
+            List<Professeur> professeurs = db.Professeurs.Include(p => p.departement).Where(p => p.departementId == departementId).ToList();
+            return Json(professeurs);
+        }
+
+        public JsonResult ProfEmails(int departementId)
+        {
+            var professeurs = db.Professeurs.Where(p => p.departementId == departementId);
+            var emails = new List<String>();
+            foreach (var e in professeurs)
+            {
+                emails.Add(e.email);
+            }
+            return Json(emails);
         }
     }
 }

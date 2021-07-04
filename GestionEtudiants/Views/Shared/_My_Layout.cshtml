@@ -10,6 +10,7 @@
         @ViewData["Title"] - GestionEtudiants
     </title>
     <!--     Fonts and icons     -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
@@ -17,7 +18,7 @@
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link href"~/lib/dataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
+    <link href"~ /lib/dataTables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.2" rel="stylesheet" />
 </head>
@@ -95,7 +96,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  @ViewData["Doc"]" asp-controller="Home" asp-action="Document">
+                    <a class="nav-link  @ViewData["Doc"]" asp-controller="Home" asp-action="TrombinoscopeProf">
                         <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <title>credit-card</title>
@@ -111,7 +112,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-1">Demmande Document</span>
+                        <span class="nav-link-text ms-1">Trambinoscope Professeurs</span>
                     </a>
                 </li>
 
