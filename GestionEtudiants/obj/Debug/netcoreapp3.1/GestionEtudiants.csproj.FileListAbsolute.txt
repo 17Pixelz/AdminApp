@@ -104,3 +104,8 @@ C:\Users\user\Source\Repos\AdminApp\GestionEtudiants\bin\Debug\netcoreapp3.1\Mic
 C:\Users\user\Source\Repos\AdminApp\GestionEtudiants\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.Design.dll
 C:\Users\user\Source\Repos\AdminApp\GestionEtudiants\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.Design.dll
 C:\Users\user\Source\Repos\AdminApp\GestionEtudiants\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\user\Source\Repos\AdminApp\GestionEtudiants\obj\Debug\netcoreapp3.1\Razor\Views\Home\AddDepartement.cshtml.g.cs
+C:\Users\user\Source\Repos\AdminApp\GestionEtudiants\obj\Debug\netcoreapp3.1\Razor\Views\Home\AddFiliere.cshtml.g.cs
+C:\Users\user\Source\Repos\AdminApp\GestionEtudiants\obj\Debug\netcoreapp3.1\Razor\Views\Home\DisplayDepartement.cshtml.g.cs
+C:\Users\user\Source\Repos\AdminApp\GestionEtudiants\obj\Debug\netcoreapp3.1\Razor\Views\Home\DisplayFiliere.cshtml.g.cs
+C:\Users\user\Source\Repos\AdminApp\GestionEtudiants\obj\Debug\netcoreapp3.1\Razor\Views\Home\DisplayProfesseur.cshtml.g.cs

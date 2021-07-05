@@ -266,14 +266,21 @@ namespace GestionEtudiants.Controllers
         {
             return View();
         }
-
+        //professeur
         public IActionResult AddProfesseur()
         {
             var departements = db.departements.ToList();
             ViewBag.dep = departements;
             return View();
         }
+        public IActionResult StoreProfesseur(string nom,string prenom,string email, int departement, string password)
+        {
+            var prof = new Professeur { nom = nom, prenom = prenom, email = email, departementId = departement, password = password };
+            db.Professeurs.Add(prof);
+            db.SaveChanges();
 
+            return Redirect("AddProfesseur");
+        }
         public IActionResult TrombinoscopeProf()
         {
             var departements = db.departements.ToList();
@@ -281,6 +288,85 @@ namespace GestionEtudiants.Controllers
             return View();
         }
 
+        public IActionResult DisplayProfesseur()
+        {
+            var professeurs = db.Professeurs.Include(p => p.departement).Include(p => p.modules).ToList();
+            ViewBag.profs = professeurs;
+            return View();
+        }
+
+        public IActionResult DeleteProfesseur(int id)
+        {
+            if (db.Professeurs.Find(id) != null)
+            {
+                db.Professeurs.Remove(db.Professeurs.Find(id));
+                db.SaveChanges();
+            }
+            return RedirectToAction(controllerName:"Home", actionName: "DisplayProfesseur");
+        }
+
+        //departement
+        public IActionResult AddDepartement()
+        {
+            return View();
+        }
+
+        public IActionResult StoreDepartement(string nom)
+        {
+            var dep = new Departement { nom = nom };
+            db.departements.Add(dep);
+            db.SaveChanges();
+
+            return RedirectToAction(actionName:"AddDepartement");
+        }
+        
+        public IActionResult DisplayDepartement()
+        {
+            var departements = db.departements.ToList();
+            ViewBag.dep = departements;
+            return View();
+        }
+        public IActionResult DeleteDepartement(int id)
+        {
+            db.departements.Remove(db.departements.Find(id));
+            db.SaveChanges();
+
+            return RedirectToAction(controllerName:"Home",actionName: "DisplayFiliere") ;
+        }
+        //filiere
+        public IActionResult AddFiliere()
+        {
+            var departements = db.departements.ToList();
+            ViewBag.dep = departements;
+            return View();
+        }
+
+        public IActionResult StoreFiliere(string nom, int departement)
+        {
+            var filiere = new Filiere { nom = nom, departementId = departement };
+            db.Filieres.Add(filiere);
+            db.SaveChanges();
+
+            return RedirectToAction(actionName:"AddFiliere");
+        }
+
+        public IActionResult DisplayFiliere()
+        {
+            var filieres = db.Filieres.Include(f => f.departement).ToList();
+            ViewBag.fil = filieres;
+            return View();
+        }
+        public IActionResult DeleteFiliere(int id)
+        {
+            if (db.Filieres.Find(id) != null)
+            {
+                db.Filieres.Remove(db.Filieres.Find(id));
+                db.SaveChanges();
+            }
+            return RedirectToAction(controllerName: "Home",actionName:"DisplayFiliere");
+        }
+
+        //fonctions trombinoscope
         public JsonResult getProfByDep(int departementId)
         {
             List<Professeur> professeurs = db.Professeurs.Include(p => p.departement).Where(p => p.departementId == departementId).ToList();
@@ -297,5 +383,7 @@ namespace GestionEtudiants.Controllers
             }
             return Json(emails);
         }
+
+
     }
 }
