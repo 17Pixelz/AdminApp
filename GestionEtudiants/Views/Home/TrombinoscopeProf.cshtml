@@ -10,7 +10,7 @@
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-8">
                             <select class="form-control col-xl-12 col-lg-12" id="selectDep" aria-label="Selectionner Departement">
                                 <option selected>Mes classes</option>
                                 @foreach (var c in ViewBag.dep)
@@ -19,17 +19,14 @@
                                 }
                             </select>
                         </div>
-                        <div class="col text-center">
+                        <div class="col-4 text-center">
                             <button onclick="copyEmails()" class="btn btn-primary col-xl-4 col-lg-4">Copy emails</button>
                         </div>
                     </div>
                    
                 </div>
-                <div class="card-body px-0 pt-0 pb-2">
+                <div class="card-body px-0 m-5 pt-0 pb-2">
                     <div class="row">
-                        <div class="col">
-                            <h3>@ViewData["Title"]</h3>
-                        </div>
                         <div class="col">
                             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                                 <div class="input-group">

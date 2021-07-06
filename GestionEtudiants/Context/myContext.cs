@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using GestionEtudiants.Models;
+using Admin.Models;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace GestionEtudiants.Context
+namespace Admin.Context
 {
     public class myContext : DbContext
     {
@@ -55,6 +55,7 @@ namespace GestionEtudiants.Context
         }
 
 
+
         public DbSet<Etudiant> Etudiants { get; set; }
         public DbSet<Classe> classes { get; set; }
         public DbSet<Document> Documents { get; set; }
@@ -63,6 +64,7 @@ namespace GestionEtudiants.Context
         public DbSet<Professeur> Professeurs { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Departement> departements{ get; set; }
+        public DbSet<Etat> etats { get; set; }
 
     }
 }

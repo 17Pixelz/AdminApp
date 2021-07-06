@@ -6,11 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using GestionEtudiants.Context;
+using Admin.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
-namespace GestionEtudiants
+namespace Admin
 {
     public class Startup
     {
@@ -28,19 +28,6 @@ namespace GestionEtudiants
 
             services.AddDistributedMemoryCache();
 
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(60);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/Home/Login";
-                    options.Cookie.Name = "EtudiantConnected";
-                });
 
             String ctr = Configuration.GetConnectionString("Default");
             //services.AddDbContextPool<myContext>(options => options.UseMySql(ctr, ServerVersion.AutoDetect(ctr)));
@@ -66,17 +53,12 @@ namespace GestionEtudiants
 
             app.UseRouting();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseCookiePolicy();
-
-            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=AddProfesseur}");
             });
         }
     }

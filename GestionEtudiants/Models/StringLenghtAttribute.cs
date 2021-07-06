@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GestionEtudiants.Models
+namespace Admin.Models
 {
     internal class StringLenghtAttribute : Attribute
     {

@@ -7,7 +7,7 @@ using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace GestionEtudiants.Models
+namespace Admin.Models
 {
     public class Module
     {

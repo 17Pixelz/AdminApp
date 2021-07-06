@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GestionEtudiants.Models
+namespace Admin.Models
 {
     public class SchoolDBInitializer
     {
@@ -33,6 +33,7 @@ namespace GestionEtudiants.Models
                 "B",
                 "C"
             };
+
 
 
             var ids = 1;
@@ -82,7 +83,7 @@ namespace GestionEtudiants.Models
                 .RuleFor(m => m.annee, f => 2021)
                 .RuleFor(m => m.filiereId, f => f.PickRandom(filieres).id);
 
-            classes = inscs.Generate(4);
+            classes = inscs.Generate(6);
 
             ids = 1;
             var mods = new Faker<Module>()
@@ -118,13 +119,15 @@ namespace GestionEtudiants.Models
                 .RuleFor(m => m.cin, f => "EE" + f.System.Random.Number(60000))
                 .RuleFor(m => m.cne, f => "G" + f.System.Random.Number(600000))
                 .RuleFor(m => m.phone, f => f.Person.Phone)
-                .RuleFor(m => m.ddn, f =>  f.Person.DateOfBirth.Date)
+                .RuleFor(m => m.ddn, f => f.Person.DateOfBirth.Date)
                 .RuleFor(m => m.annee, f => "2021")
                 .RuleFor(m => m.address, f => f.Person.Address.City)
                 .RuleFor(m => m.natio, f => f.Address.Country())
                 .RuleFor(m => m.password, "0000")
                 .RuleFor(m => m.sexe, f => f.Person.Gender.ToString())
-                .RuleFor(m => m.classeId, f => f.PickRandom(classes).id);
+                .RuleFor(m => m.classeId, f => f.PickRandom(classes).id)
+                .RuleFor(m => m.diplome, f => f.Lorem.Random.Words(3))
+                .RuleFor(m => m.annee_bac, f => f.Random.Number(2015, 2017).ToString());
 
             etudiants = etus.Generate(500);
 
@@ -136,7 +139,7 @@ namespace GestionEtudiants.Models
                 .RuleFor(m => m.date_demande, f => DateTime.Now)
                 .RuleFor(m => m.id_etudiant, f => f.PickRandom(etudiants).apogee);
 
-            documents = docs.Generate(5);
+            documents = docs.Generate(250);
 
 
 

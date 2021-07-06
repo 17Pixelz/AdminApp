@@ -8,12 +8,22 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Ajouter un étudiant</h6>
+                    <h6>Ajouter des étudiants</h6>
                 </div>
-                <div class="card-body px-0 pt-0 pb-2">
-                   <form method="post">
-
-                   </form>
+                <div class="card-body px-0 pt-0 pb-2 m-5 text-center">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <input type="file" class="custom-file-input" id="validatedCustomFile" name="file" required>
+                                    <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-primary" type="submit">Ajouter</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
